@@ -1,0 +1,7 @@
+{
+    "plugins": [["proposal-pipeline-operator", { "proposal": "rxjs" }]],
+    "parserOpts": {
+      "allowReturnOutsideFunction": true
+    }
+  }
+  
