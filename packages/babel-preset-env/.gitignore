@@ -9,3 +9,4 @@ test/tmp
 tmp
 babel-preset-env-*.tgz
 /build
+!lib
