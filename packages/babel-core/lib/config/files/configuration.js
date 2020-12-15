@@ -101,9 +101,7 @@ function* findRelativeConfig(packageData, envName, caller) {
 
   for (const loc of packageData.directories) {
     if (!config) {
-      var _packageData$pkg;
-
-      config = yield* loadOneConfig(RELATIVE_CONFIG_FILENAMES, loc, envName, caller, ((_packageData$pkg = packageData.pkg) == null ? void 0 : _packageData$pkg.dirname) === loc ? packageToBabelConfig(packageData.pkg) : null);
+      config = yield* loadOneConfig(RELATIVE_CONFIG_FILENAMES, loc, envName, caller, packageData.pkg?.dirname === loc ? packageToBabelConfig(packageData.pkg) : null);
     }
 
     if (!ignore) {
@@ -145,18 +143,10 @@ function* loadOneConfig(names, dirname, envName, caller, previousConfig = null) 
 }
 
 function* loadConfig(name, dirname, envName, caller) {
-  const filepath = (parseFloat(process.versions.node) >= 8.9 ? require.resolve : (r, {
-    paths: [b]
-  }, M = require("module")) => {
-    let f = M._findPath(r, M._nodeModulePaths(b).concat(b));
-
-    if (f) return f;
-    f = new Error(`Cannot resolve module '${r}'`);
-    f.code = "MODULE_NOT_FOUND";
-    throw f;
-  })(name, {
+  const filepath = require.resolve(name, {
     paths: [dirname]
   });
+
   const conf = yield* readConfig(filepath, envName, caller);
 
   if (!conf) {

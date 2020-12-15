@@ -62,9 +62,7 @@ const Formatter = {
 };
 
 function descriptorToConfig(d) {
-  var _d$file;
-
-  let name = (_d$file = d.file) == null ? void 0 : _d$file.request;
+  let name = d.file?.request;
 
   if (name == null) {
     if (typeof d.value === "object") {

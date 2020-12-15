@@ -200,19 +200,19 @@ const getPolyfillPlugins = ({
 exports.getPolyfillPlugins = getPolyfillPlugins;
 
 function supportsStaticESM(caller) {
-  return !!(caller == null ? void 0 : caller.supportsStaticESM);
+  return !!caller?.supportsStaticESM;
 }
 
 function supportsDynamicImport(caller) {
-  return !!(caller == null ? void 0 : caller.supportsDynamicImport);
+  return !!caller?.supportsDynamicImport;
 }
 
 function supportsExportNamespaceFrom(caller) {
-  return !!(caller == null ? void 0 : caller.supportsExportNamespaceFrom);
+  return !!caller?.supportsExportNamespaceFrom;
 }
 
 function supportsTopLevelAwait(caller) {
-  return !!(caller == null ? void 0 : caller.supportsTopLevelAwait);
+  return !!caller?.supportsTopLevelAwait;
 }
 
 var _default = (0, _helperPluginUtils.declare)((api, opts) => {
@@ -239,7 +239,7 @@ var _default = (0, _helperPluginUtils.declare)((api, opts) => {
   } = (0, _normalizeOptions.default)(opts);
   let hasUglifyTarget = false;
 
-  if (optionsTargets == null ? void 0 : optionsTargets.uglify) {
+  if (optionsTargets?.uglify) {
     hasUglifyTarget = true;
     delete optionsTargets.uglify;
     console.log("");
@@ -248,7 +248,7 @@ var _default = (0, _helperPluginUtils.declare)((api, opts) => {
     console.log("");
   }
 
-  if ((optionsTargets == null ? void 0 : optionsTargets.esmodules) && optionsTargets.browsers) {
+  if (optionsTargets?.esmodules && optionsTargets.browsers) {
     console.log("");
     console.log("@babel/preset-env: esmodules and browsers targets have been specified together.");
     console.log(`\`browsers\` target, \`${optionsTargets.browsers}\` will be ignored.`);
@@ -264,7 +264,7 @@ var _default = (0, _helperPluginUtils.declare)((api, opts) => {
   const exclude = transformIncludesAndExcludes(optionsExclude);
   const transformTargets = forceAllTransforms || hasUglifyTarget ? {} : targets;
   const compatData = getPluginList(shippedProposals, bugfixes);
-  const shouldSkipExportNamespaceFrom = modules === "auto" && (api.caller == null ? void 0 : api.caller(supportsExportNamespaceFrom)) || modules === false && !(0, _helperCompilationTargets.isRequired)("proposal-export-namespace-from", transformTargets, {
+  const shouldSkipExportNamespaceFrom = modules === "auto" && api.caller?.(supportsExportNamespaceFrom) || modules === false && !(0, _helperCompilationTargets.isRequired)("proposal-export-namespace-from", transformTargets, {
     compatData,
     includes: include.plugins,
     excludes: exclude.plugins
@@ -272,8 +272,8 @@ var _default = (0, _helperPluginUtils.declare)((api, opts) => {
   const modulesPluginNames = getModulesPluginNames({
     modules,
     transformations: _moduleTransformations.default,
-    shouldTransformESM: modules !== "auto" || !(api.caller == null ? void 0 : api.caller(supportsStaticESM)),
-    shouldTransformDynamicImport: modules !== "auto" || !(api.caller == null ? void 0 : api.caller(supportsDynamicImport)),
+    shouldTransformESM: modules !== "auto" || !api.caller?.(supportsStaticESM),
+    shouldTransformDynamicImport: modules !== "auto" || !api.caller?.(supportsDynamicImport),
     shouldTransformExportNamespaceFrom: !shouldSkipExportNamespaceFrom,
     shouldParseTopLevelAwait: !api.caller || api.caller(supportsTopLevelAwait)
   });

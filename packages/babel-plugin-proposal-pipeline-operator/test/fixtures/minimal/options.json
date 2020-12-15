@@ -1,6 +1,7 @@
 {
-  "plugins": [["proposal-pipeline-operator", { "proposal": "minimal" }]],
-  "parserOpts": {
-    "allowReturnOutsideFunction": true
+    "plugins": [["proposal-pipeline-operator", { "proposal": "minimal" }]],
+    "parserOpts": {
+      "allowReturnOutsideFunction": true
+    }
   }
-}
+  

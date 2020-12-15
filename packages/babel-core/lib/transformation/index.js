@@ -34,9 +34,7 @@ function* run(config, code, ast) {
   try {
     yield* transformFile(file, config.passes);
   } catch (e) {
-    var _opts$filename;
-
-    e.message = `${(_opts$filename = opts.filename) != null ? _opts$filename : "unknown"}: ${e.message}`;
+    e.message = `${opts.filename ?? "unknown"}: ${e.message}`;
 
     if (!e.code) {
       e.code = "BABEL_TRANSFORM_ERROR";
@@ -55,9 +53,7 @@ function* run(config, code, ast) {
       } = (0, _generate.default)(config.passes, file));
     }
   } catch (e) {
-    var _opts$filename2;
-
-    e.message = `${(_opts$filename2 = opts.filename) != null ? _opts$filename2 : "unknown"}: ${e.message}`;
+    e.message = `${opts.filename ?? "unknown"}: ${e.message}`;
 
     if (!e.code) {
       e.code = "BABEL_GENERATE_ERROR";

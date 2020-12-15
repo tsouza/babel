@@ -88,16 +88,7 @@ function resolveStandardizedName(type, name, dirname = process.cwd()) {
   const standardizedName = standardizeName(type, name);
 
   try {
-    return (parseFloat(process.versions.node) >= 8.9 ? require.resolve : (r, {
-      paths: [b]
-    }, M = require("module")) => {
-      let f = M._findPath(r, M._nodeModulePaths(b).concat(b));
-
-      if (f) return f;
-      f = new Error(`Cannot resolve module '${r}'`);
-      f.code = "MODULE_NOT_FOUND";
-      throw f;
-    })(standardizedName, {
+    return require.resolve(standardizedName, {
       paths: [dirname]
     });
   } catch (e) {
@@ -107,20 +98,12 @@ function resolveStandardizedName(type, name, dirname = process.cwd()) {
       let resolvedOriginal = false;
 
       try {
-        (parseFloat(process.versions.node) >= 8.9 ? require.resolve : (r, {
-          paths: [b]
-        }, M = require("module")) => {
-          let f = M._findPath(r, M._nodeModulePaths(b).concat(b));
-
-          if (f) return f;
-          f = new Error(`Cannot resolve module '${r}'`);
-          f.code = "MODULE_NOT_FOUND";
-          throw f;
-        })(name, {
+        require.resolve(name, {
           paths: [dirname]
         });
+
         resolvedOriginal = true;
-      } catch (_unused) {}
+      } catch {}
 
       if (resolvedOriginal) {
         e.message += `\n- If you want to resolve "${name}", use "module:${name}"`;
@@ -130,20 +113,12 @@ function resolveStandardizedName(type, name, dirname = process.cwd()) {
     let resolvedBabel = false;
 
     try {
-      (parseFloat(process.versions.node) >= 8.9 ? require.resolve : (r, {
-        paths: [b]
-      }, M = require("module")) => {
-        let f = M._findPath(r, M._nodeModulePaths(b).concat(b));
-
-        if (f) return f;
-        f = new Error(`Cannot resolve module '${r}'`);
-        f.code = "MODULE_NOT_FOUND";
-        throw f;
-      })(standardizeName(type, "@babel/" + name), {
+      require.resolve(standardizeName(type, "@babel/" + name), {
         paths: [dirname]
       });
+
       resolvedBabel = true;
-    } catch (_unused2) {}
+    } catch {}
 
     if (resolvedBabel) {
       e.message += `\n- Did you mean "@babel/${name}"?`;
@@ -153,20 +128,12 @@ function resolveStandardizedName(type, name, dirname = process.cwd()) {
     const oppositeType = type === "preset" ? "plugin" : "preset";
 
     try {
-      (parseFloat(process.versions.node) >= 8.9 ? require.resolve : (r, {
-        paths: [b]
-      }, M = require("module")) => {
-        let f = M._findPath(r, M._nodeModulePaths(b).concat(b));
-
-        if (f) return f;
-        f = new Error(`Cannot resolve module '${r}'`);
-        f.code = "MODULE_NOT_FOUND";
-        throw f;
-      })(standardizeName(oppositeType, name), {
+      require.resolve(standardizeName(oppositeType, name), {
         paths: [dirname]
       });
+
       resolvedOppositeType = true;
-    } catch (_unused3) {}
+    } catch {}
 
     if (resolvedOppositeType) {
       e.message += `\n- Did you accidentally pass a ${oppositeType} as a ${type}?`;

@@ -257,14 +257,12 @@ function buildRootDescriptors({
 }
 
 function buildProgrammaticLogger(_, context, baseLogger) {
-  var _context$caller;
-
   if (!baseLogger) {
     return () => {};
   }
 
   return baseLogger.configure(context.showConfig, _printer.ChainFormatter.Programmatic, {
-    callerName: (_context$caller = context.caller) == null ? void 0 : _context$caller.name
+    callerName: context.caller?.name
   });
 }
 
@@ -499,9 +497,7 @@ function configFieldIsApplicable(context, test, dirname) {
 
 function shouldIgnore(context, ignore, only, dirname) {
   if (ignore && matchesPatterns(context, ignore, dirname)) {
-    var _context$filename;
-
-    const message = `No config is applied to "${(_context$filename = context.filename) != null ? _context$filename : "(unknown)"}" because it matches one of \`ignore: ${JSON.stringify(ignore)}\` from "${dirname}"`;
+    const message = `No config is applied to "${context.filename ?? "(unknown)"}" because it matches one of \`ignore: ${JSON.stringify(ignore)}\` from "${dirname}"`;
     debug(message);
 
     if (context.showConfig) {
@@ -512,9 +508,7 @@ function shouldIgnore(context, ignore, only, dirname) {
   }
 
   if (only && !matchesPatterns(context, only, dirname)) {
-    var _context$filename2;
-
-    const message = `No config is applied to "${(_context$filename2 = context.filename) != null ? _context$filename2 : "(unknown)"}" because it fails to match one of \`only: ${JSON.stringify(only)}\` from "${dirname}"`;
+    const message = `No config is applied to "${context.filename ?? "(unknown)"}" because it fails to match one of \`only: ${JSON.stringify(only)}\` from "${dirname}"`;
     debug(message);
 
     if (context.showConfig) {

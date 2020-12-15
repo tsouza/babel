@@ -1,3 +1,5 @@
-var inc = (x) => x + 1
+const { map } = require('rxjs/operators');
+const { from } = require('rxjs');
 
-expect(10 |> inc).toBe(11);
+(from([10]) |> map(x => x + 1)).
+    subscribe(x => expect(x).toBe(11));

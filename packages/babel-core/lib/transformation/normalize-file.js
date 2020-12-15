@@ -76,7 +76,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const debug = (0, _debug().default)("babel:transform:file");
-const LARGE_INPUT_SOURCEMAP_THRESHOLD = 1000000;
+const LARGE_INPUT_SOURCEMAP_THRESHOLD = 1_000_000;
 
 function* normalizeFile(pluginPasses, options, code, ast) {
   code = `${code || ""}`;

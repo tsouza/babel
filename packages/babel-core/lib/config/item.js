@@ -37,7 +37,7 @@ function createConfigItem(value, {
 }
 
 function getItemDescriptor(item) {
-  if (item == null ? void 0 : item[CONFIG_ITEM_BRAND]) {
+  if (item?.[CONFIG_ITEM_BRAND]) {
     return item._descriptor;
   }
 

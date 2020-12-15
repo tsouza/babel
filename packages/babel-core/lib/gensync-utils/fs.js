@@ -38,7 +38,7 @@ const exists = (0, _gensync().default)({
       _fs().default.accessSync(path);
 
       return true;
-    } catch (_unused) {
+    } catch {
       return false;
     }
   },

@@ -29,15 +29,11 @@ function _url() {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 let import_;
 
 try {
   import_ = require("./import").default;
-} catch (_unused) {}
+} catch {}
 
 function* loadCjsOrMjsDefault(filepath, asyncError) {
   switch (guessJSModuleType(filepath)) {
@@ -76,21 +72,14 @@ function guessJSModuleType(filename) {
 function loadCjsDefault(filepath) {
   const module = require(filepath);
 
-  return (module == null ? void 0 : module.__esModule) ? module.default || undefined : module;
+  return module?.__esModule ? module.default || undefined : module;
 }
 
-function loadMjsDefault(_x) {
-  return _loadMjsDefault.apply(this, arguments);
-}
+async function loadMjsDefault(filepath) {
+  if (!import_) {
+    throw new Error("Internal error: Native ECMAScript modules aren't supported" + " by this platform.\n");
+  }
 
-function _loadMjsDefault() {
-  _loadMjsDefault = _asyncToGenerator(function* (filepath) {
-    if (!import_) {
-      throw new Error("Internal error: Native ECMAScript modules aren't supported" + " by this platform.\n");
-    }
-
-    const module = yield import_((0, _url().pathToFileURL)(filepath));
-    return module.default;
-  });
-  return _loadMjsDefault.apply(this, arguments);
+  const module = await import_((0, _url().pathToFileURL)(filepath));
+  return module.default;
 }

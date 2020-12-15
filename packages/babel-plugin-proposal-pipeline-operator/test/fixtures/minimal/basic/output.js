@@ -1,5 +1,11 @@
-var _;
+var _from;
 
-var inc = x => x + 1;
+const {
+  map
+} = require('rxjs/operators');
 
-expect((_ = 10, inc(_))).toBe(11);
+const {
+  from
+} = require('rxjs');
+
+(_from = from([10]), _from.pipe(map(x => x + 1))).subscribe(x => expect(x).toBe(11));
