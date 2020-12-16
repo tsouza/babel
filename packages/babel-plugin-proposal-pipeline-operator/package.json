@@ -16,8 +16,8 @@
     "babel-plugin"
   ],
   "dependencies": {
-    "@babel/helper-plugin-utils": "workspace:^7.10.4",
-    "@babel/plugin-syntax-pipeline-operator": "workspace:^7.12.1"
+    "@babel/helper-plugin-utils": "^7.10.4",
+    "@babel/plugin-syntax-pipeline-operator": "^7.12.1"
   },
   "peerDependencies": {
     "@babel/core": "^7.0.0-0"
