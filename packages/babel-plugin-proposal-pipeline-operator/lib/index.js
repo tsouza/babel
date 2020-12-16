@@ -9,9 +9,9 @@ var _helperPluginUtils = require("@babel/helper-plugin-utils");
 
 var _pluginSyntaxPipelineOperator = _interopRequireDefault(require("@babel/plugin-syntax-pipeline-operator"));
 
-var _rxjsVisitor = _interopRequireDefault(require("./rxjsVisitor"));
-
 var _smartVisitor = _interopRequireDefault(require("./smartVisitor"));
+
+var _rxjsVisitor = _interopRequireDefault(require("./rxjsVisitor"));
 
 var _fsharpVisitor = _interopRequireDefault(require("./fsharpVisitor"));
 

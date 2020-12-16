@@ -1,8 +1,8 @@
 import { declare } from "@babel/helper-plugin-utils";
 import syntaxPipelineOperator from "@babel/plugin-syntax-pipeline-operator";
+import smartVisitor from "./smartVisitor";
 import minimalVisitor from "./rxjsVisitor";
 //import rxjsVisitor from "./rxjsVisitor";
-import smartVisitor from "./smartVisitor";
 import fsharpVisitor from "./fsharpVisitor";
 
 const visitorsPerProposal = {
