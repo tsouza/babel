@@ -20,11 +20,11 @@
     "@babel/plugin-syntax-pipeline-operator": "^7.12.1"
   },
   "peerDependencies": {
-    "@babel/core": "^7.0.0-0"
+    "@babel/core": "^7.12.10"
   },
   "devDependencies": {
-    "@babel/core": "workspace:*",
-    "@babel/helper-plugin-test-runner": "workspace:*",
+    "@babel/core": "*",
+    "@babel/helper-plugin-test-runner": "^7.10.4",
     "@util.js/node-streams": "^0.40.1",
     "rxjs": "^6.6.3"
   }
